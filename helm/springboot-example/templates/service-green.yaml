@@ -1,0 +1,23 @@
+{{ if .Values.production.green.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "springboot-example.fullname" . }}-{{ .Values.productionSlot }}
+  labels:
+    app.kubernetes.io/name: {{ include "springboot-example.name" . }}
+    helm.sh/chart: {{ include "springboot-example.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      nodePort: {{ .Values.service.nodeport }}
+      targetPort: {{ .Values.service.targetport }}      
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "springboot-example.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    slot: {{ .Values.productionSlot }}
+{{ end }}      
