@@ -20,6 +20,12 @@ yum install maven -y
 ## kubernetes cluster - minikube
 [minikube setup](https://github.com/Naresh240/kubernetes/blob/main/minikube-setup/README.md)
 
+## Enable the Ingress controller
+
+```bash
+minikube addons enable ingress
+```
+
 ## Install helm
 
 ```bash
